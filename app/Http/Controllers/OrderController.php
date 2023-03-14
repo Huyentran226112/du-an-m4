@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,6 +14,8 @@ class OrderController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Order::class);
+        
         $items = Order::all();
 
         return view('admin.orders.index',compact('items'));
@@ -39,6 +42,7 @@ class OrderController extends Controller
      */
     public function show(string $id)
     {
+        $this->authorize('view', Order::class);
         $items=DB::table('ordersdetail')
         ->join('orders','ordersdetail.order_id','=','orders.id')
         ->join('products','ordersdetail.product_id','=','products.id')

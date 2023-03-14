@@ -6,6 +6,9 @@ use App\Http\Requests\RegisterRequest;
 use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Product;
+use App\Models\Order;
+use App\Models\OrderDetail;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Doctrine\Common\Cache\Cache;
 use Illuminate\Http\RedirectResponse;
@@ -24,21 +27,18 @@ class ShopController extends Controller
             'password' => $request->password
         ];
         // dd($arr);
-        if (Auth::guard('customers')->attempt($arr)) {
+        if($request->check && Auth::guard('customers')->attempt($arr)){
             Session::push('customer', $arr['email']);
-
-
-
+            return redirect()->route('checkOuts');
+        }
+        else if (Auth::guard('customers')->attempt($arr)) {
+            Session::push('customer', $arr['email']);
             return redirect()->route('shop.index');
         }
         else {
-
-
             return redirect()->route('shop.login');
         }
-
     }
-
     public function index()
     {
         if (isset(Auth::guard('customers')->user()->id)) {
@@ -50,7 +50,7 @@ class ShopController extends Controller
         } else {
                 $carts = [];
             }
-        $products = Product::get();
+        $products = Product::where('status',0)->get();
         $param = [
             'products' => $products,
         ];
@@ -64,37 +64,20 @@ class ShopController extends Controller
         ];
         return view('shop.home', $param);
     }
-
-
     public function show(string $id)
     {
         $product = Product::find($id);
         // dd($product);
         return view('shop.includes.show', compact('product'));
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        //
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
     }
     //view giỏ hàng
     public function cart()
@@ -153,14 +136,7 @@ class ShopController extends Controller
         } catch (\Exception $e) {
             Log::error("message:".$e->getMessage());
         }
-
-            if ($request->password == $request->confirmpassword) {
-                $customer->save();
-                return redirect()->route('shop.index');
-            }else{
-                return redirect()->route('shop.register');
-
-            }
+                return redirect()->route('shop.login');
     }
     public function login()
     {
@@ -168,7 +144,7 @@ class ShopController extends Controller
     }
 
     public function logout(){
-        Auth::logout();
+        Auth::guard('customers')->logout();
 
         return redirect()->route('shop.login');
       }
@@ -182,22 +158,47 @@ class ShopController extends Controller
         //   trả về cho view hiển thị nhũng sản p[hẩm có cùng danh mục SP đó
         return view('shop.layouts.categorydetail',$param) ;
     }
+    public function checkOuts()
+    {
+           return view('shop.includes.checkout');
+    }
     public function order(Request $request){
         //lấy emai của cuustomer
-        $email= Session::get('customer');
-        // lấy id product(được push khi người dung click đặt hàng())
-        $arr = [
-            'id' => $request->id,
-            'quantity' => $request->quantity
-        ];
-        $product=Session::get('product');
-        Session::push('customer', $arr['id'],['quantity']);
-        $param =[
-            'products'=>$product
-        ];
-        dd($product);
-        $product_id=$product[0];
-        $product_quantity=$product[0];
-        return view('shop.includes.order',$param);
+        if ($request->product_id == null) {
+            return redirect()->back();
+        } else {
+            $id = Auth::guard('customers')->user()->id;
+            $data = Customer::find($id);
+            $data->address = $request->address;
+            $data->email = $request->email;
+            $data->phone = $request->phone;
+            $data->address = $request->address;
+            if (isset($request->note)) {
+                $data->note = $request->note;
+            }
+            $data->save();
+
+            $order = new order();
+            $order->customer_id = Auth::guard('customers')->user()->id;
+            $order->date_at = date('Y-m-d H:i:s');
+            $order->total = $request->totalAll;
+            $order->save();
+        }
+        $count_product = count($request->product_id);
+        for ($i = 0; $i < $count_product; $i++) {
+            $orderItem = new OrderDetail();
+            $orderItem->order_id =  $order->id;
+            $orderItem->product_id = $request->product_id[$i];
+            $orderItem->quantity = $request->quantity[$i];
+            $orderItem->total = $request->total[$i];
+            $orderItem->save();
+            session()->forget('cart');
+            DB::table('products')
+                ->where('id', '=', $orderItem->product_id)
+                ->decrement('quantity', $orderItem->quantity);
+        }
+        // dd($request);
+        alert()->success('Đã đặt Thành Công');
+        return redirect()->route('shop.index');
     }
 }

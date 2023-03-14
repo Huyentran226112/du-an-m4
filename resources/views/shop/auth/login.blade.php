@@ -380,6 +380,7 @@
 
     <form action="{{ route('shop.checklogin') }}" method="POST">
         @csrf
+        <input type="text" name="check" value="<?= $_GET['check'] ?? '' ?>" hidden>
         <div class="right">
             <h1>Đăng nhập</h1>
             <p>Don't have an account? <a href="#">Creat Your Account</a> it takes less than a minute</p>
@@ -399,7 +400,7 @@
             </div>
             <br>
             <a href="{{ route('shop.register') }} ">Đăng kí</a>
-            <button type="submit">Login</button>
+            <button type="submit">Đăng nhập</button>
         </div>
     </form>
 </div>

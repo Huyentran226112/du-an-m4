@@ -168,11 +168,17 @@ body {
     bottom: 100%;
   }
 }
+input[type="submit"] {
+  background-color: transparent;
+  border:0.000001px solid black;
+  outline: none;
+  color: blue;
+}
 </style>
 
 
 <div class="login-box">
-    <h2>register</h2>
+    <h2>Đăng kí Admin</h2>
     <form action="{{Route('register')}}"method="post">
         @csrf
         <div class="user-box">
@@ -194,8 +200,14 @@ body {
         @error('password')
                 <div style="color: red">{{$message}}</div>
         @enderror
-        <label>Password</label>
+        <label>Mật khẩu</label>
       </div>
-     <button type="submit">đăng ký</button>
+      <a href="#">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <input type="submit"value="Đăng kí">
+    </a>
     </form>
   </div>

@@ -19,9 +19,10 @@
                 <form action="{{route('groups.destroy',[$group->id])}}" method="post">
                     @method('DELETE')
                     @csrf
+                    <a class="btn btn-primary " href="{{route('group.detail', $group->id)}}">Trao Quyền</a>
+                    <a class="btn btn-primary" href="{{ route('groups.edit',$group['id']) }}">sửa</a>
                     <button onclick="return confirm('Bạn có muốn xóa này không?');" class="btn btn-danger">Xóa</button>
                     </form>
-               <a class="btn btn-primary" href="{{ route('groups.edit',$group['id']) }}">edit</a>
             </td>
           </tr>
 @endforeach

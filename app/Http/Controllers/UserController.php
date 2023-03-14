@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Group;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -15,7 +16,13 @@ class UserController extends Controller
      * Display a listing of the resource.
      */
     public function index(){
-        //
+
+        $users = User::orderBy('id','DESC')->get();
+        $param = [
+            'users' => $users,
+        ];
+        
+        return view('admin.users.index', $param);
     }
 
     /**
@@ -23,7 +30,13 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize('create', User::class);
+        $groups = Group::all();
+        $param = [
+            'groups' => $groups,
+            
+        ];
+        return view('admin.users.create',$param);
     }
 
     /**
@@ -31,9 +44,17 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $this->authorize('create', User::class);
+        $users = new User();
+        $users->name = $request->name;
+        $users->email = $request->email;
+        $users->password = $request->password;
+        $users->group_id = $request->group_id;
+        $users->save();
+        alert()->success('Thêm', 'thành công');
 
+        return redirect()->route('users.index');
+    }
     /**
      * Display the specified resource.
      */
@@ -47,7 +68,17 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $this->authorize('update', User::class);
+        $groups = Group::all();
+        $users = User::find($id);
+        
+        $param = [
+            'users' => $users,
+            'groups' => $groups,
+            
+        ];
+
+        return view('admin.users.edit', $param);
     }
 
     /**
@@ -55,6 +86,15 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // dd($request);
+        
+        $users = User::find($id);
+        $users->name = $request->name;
+        $users->email = $request->email;
+        $users->group_id = $request->group_id;
+        $users->save();
+        alert()->success('Thêm', 'thành công');
+        return redirect()->route('users.index');
     }
 
     /**

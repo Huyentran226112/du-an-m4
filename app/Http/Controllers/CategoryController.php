@@ -12,11 +12,10 @@ use Illuminate\Support\Facades\Log;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+   
     public function index()
     {
+        $this->authorize('viewAny', Category::class);
         $categories = Category::orderBy('id', 'DESC')->get();
         $param = [
             'categories' => $categories,
@@ -27,11 +26,14 @@ class CategoryController extends Controller
 
     public function create()
     {
+        $this->authorize('create', Category::class);
+
         return view('admin.categories.create');
     }
 
     public function store(Request $request)
     {
+        $this->authorize('create', Category::class);
         $categories = new Category();
         $categories->name = $request->name;
         if ($request->hasFile('image')) {
@@ -44,7 +46,6 @@ class CategoryController extends Controller
             $categories->image = $new_image;
             $data['product_image'] = $new_image;
         }
-        // $category->description = $request->description;
         $categories->save();
         alert()->success('Thêm', 'thành công');
 
@@ -52,20 +53,27 @@ class CategoryController extends Controller
     }
 
 
-    public function show(string $id)
+    public function show( $id)
     {
+        $this->authorize('view', Category::class);
+        $item = Category::find($id);
+        $this->authorize('view', $item);
     }
 
 
-    public function edit(string $id)
+    public function edit( $id)
     {
+        $this->authorize('update', Category::class);
         $categories = Category::find($id);
+        $this->authorize('update', $item);
         return view('admin.categories.edit', compact('categories'));
     }
 
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
+        $this->authorize('update', Category::class);
+        
         $categories = Category::find($id);
         $categories->name = $request->name;
         $get_image = $request->image;
@@ -88,28 +96,25 @@ class CategoryController extends Controller
 
         return redirect()->route('categories.index');
     }
-
-
     public function destroy(string $id)
     {
-        // Category::find($id)->delete();
-        // alert()->success('xóa','thành công');
-        // return redirect()->route('categories.index');
+        $this->authorize('delete', Category::class);
+      
         $product = Category::find($id);
         $product->delete();
         alert()->success('Sản phẩm đã được đưa vào thùng rác!');
         return redirect()->route('categories.index');
     }
-
     public function trash()
     {
+        $this->authorize('viewtrash', Category::class);
         $softs = Category::onlyTrashed()->get();
 
         return view('admin.categories.trash', compact('softs'));
     }
-
     public function restore($id)
     {
+        $this->authorize('restore', Category::class);
         try {
             $softs = Category::withTrashed()->find($id);
             $softs->restore();
@@ -119,12 +124,12 @@ class CategoryController extends Controller
             Log::error($e->getMessage());
             toast('Có Lỗi Xảy Ra!', 'error', 'top-right');
             return redirect()->route('categories.trash');
-
       }
     }
     //xóa vĩnh viễn
    public function force_delete(string $id)
     {
+        $this->authorize('forceDelete', Category::class);
         try {
               //1: tìm ra nhũng product có cate_id = $id
                 $products = Product::where('category_id', $id)->get();
@@ -139,7 +144,6 @@ class CategoryController extends Controller
                         alert()->success('Xóa Vĩnh Viễn Thành Công!');
                         return redirect()->route('categories.trash');
                 }
-
         } catch (\exception $e) {
                 Log::error($e->getMessage());
                 toast('Có Lỗi Xảy Ra!', 'error', 'top-right');

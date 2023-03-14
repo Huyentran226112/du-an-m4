@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Customer;
 
 class CustomerController extends Controller
 {
@@ -12,6 +13,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Customer::class);
+        
         $customers = Customer::all();
 
         return view('admin.customers.index',compact('customers'));
@@ -61,6 +64,8 @@ class CustomerController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id){
+        $this->authorize('delete', Customer::class);
+
         $customers = Customer::find($id);
         $customers->delete();
         alert()->success('Khách hàng đã được đưa vào thùng rác!');
@@ -69,11 +74,15 @@ class CustomerController extends Controller
     }
     public function trash()
     {
+        $this->authorize('viewAny', Customer::class);
+
         $softs = Customer::onlyTrashed()->get();
         return view('admin.customers.trash', compact('softs'));
     }
     public function restore($id)
     {
+        $this->authorize('restore', Customer::class);
+
         try {
             $softs = Customer::withTrashed()->find($id);
             $softs->restore();
@@ -88,6 +97,7 @@ class CustomerController extends Controller
      //xóa vĩnh viễn
      public function deleteforever($id)
      {
+        $this->authorize('forceDelete', Customer::class);
          try {
              $softs = Customer::withTrashed()->find($id);
              $softs->forceDelete();

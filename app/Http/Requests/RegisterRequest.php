@@ -22,11 +22,11 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         $rules =[
-            'name'=>'required|name',
-            'password'=>'required|min',
-            'email'=>'required|email',
-            'phone'=>'required|phone',
-            'address'=>'required|address',
+            'name'=>'required',
+            'password'=>'required|min:6',
+            'email'=>'required',
+            'phone'=>'required',
+            'address'=>'required',
         ];
         return $rules ;
     }

@@ -19,6 +19,8 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Product::class);
+        
         $products = Product::orderBy('id', 'DESC')->paginate(5);
         $param = [
             'products' => $products
@@ -31,6 +33,7 @@ class ProductController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Product::class);
         $categories = Category::get();
         $param = [
             'categories' => $categories
@@ -42,6 +45,8 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Product::class);
+        
         $product = new Product();
         $product->name = $request->name;
         $product->price = $request->price;
@@ -69,6 +74,8 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
+        $this->authorize('view', Product::class);
+
         $productshow = Product::findOrFail($id);
         $param = [
             'productshow' => $productshow,
@@ -81,6 +88,8 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
+        $this->authorize('update', Product::class);
+
         $product = Product::find($id);
         $categories = Category::get();
         $param = [
@@ -96,6 +105,8 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $this->authorize('update', Product::class);
+
         $product = Product::find($id);
         $product->name = $request->name;
         $product->price = $request->price;
@@ -127,6 +138,8 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
+        $this->authorize('delete', Product::class);
+
         $product = Product::find($id);
         $product->delete();
         alert()->success('Sản phẩm đã được đưa vào thùng rác!');
@@ -134,11 +147,15 @@ class ProductController extends Controller
     }
     public function trash()
     {
+        $this->authorize('viewtrash', Product::class);
+        
         $softs = Product::onlyTrashed()->get();
         return view('admin.products.trash', compact('softs'));
     }
     public function restore($id)
     {
+        $this->authorize('restore', Product::class);
+
         try {
             $softs = Product::withTrashed()->find($id);
             $softs->restore();
@@ -153,6 +170,8 @@ class ProductController extends Controller
     //xóa vĩnh viễn
     public function deleteforever($id)
     {
+        $this->authorize('forceDelete', Product::class);
+
 
         //1: timf ra nhung orderdetail copro_id=$d
 
