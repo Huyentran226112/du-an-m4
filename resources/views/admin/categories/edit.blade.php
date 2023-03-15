@@ -9,10 +9,15 @@
         <div class="mb-3">
             <label class="form-label">Tên danh mục</label>
             <input type="text" name="name" value='{{$categories->name}}' class="form-control">
+            @error('name')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
         </div>
     
             <label class="form-label">Ảnh</label>
-
+            @error('image')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
             <input type="file" name="image" value='{{$categories->image}}' class="form-control">
         <input type="submit" value="Cập nhật" class="btn btn-primary">
         <a href="{{route('categories.index')}}" class="btn btn-danger">Huỷ</a>

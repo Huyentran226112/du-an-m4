@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Shop;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Customer;
+use App\Http\Requests\StoreCustomerRequest;
+use App\Http\Requests\UpdateCustomerRequest;
+
 
 class CustomerController extends Controller
 {
@@ -13,7 +16,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny', Customer::class);
+        $this->authorize('view', Customer::class);
+
         
         $customers = Customer::all();
 
@@ -31,7 +35,7 @@ class CustomerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCustomerRequest $request)
     {
         //
     }
@@ -55,7 +59,7 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateCustomerRequest $request, string $id)
     {
         //
     }

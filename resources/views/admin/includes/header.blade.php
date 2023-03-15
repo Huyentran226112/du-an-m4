@@ -14,7 +14,8 @@
                     <li class="nav-item nav-icon">
                         <div class="iq-search-bar">
                             <form action="#" class="searchbox">
-                                <input type="text" class="text search-input" placeholder="Vui lòng nhập từ cần tìm..">
+                                <input type="text" class="text search-input" id="search"
+                                    placeholder="Vui lòng nhập từ cần tìm..">
                                 <a class="search-link" href="#"><i class="ri-search-line"></i></a>
                             </form>
                         </div>
@@ -92,7 +93,7 @@
             <ul class="navbar-list">
                 <li class="line-height">
                     <a href="#" class="search-toggle iq-waves-effect d-flex align-items-center">
-                        <img src="{{asset()}}" class="img-fluid rounded-circle" alt="user">
+                        <b>{{Auth::user()->name}}</b>
                     </a>
                     <div class="iq-sub-dropdown iq-user-dropdown">
                         <div class="iq-card shadow-none m-0">

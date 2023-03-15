@@ -1,4 +1,4 @@
-!
+
 <header class="header_area sticky-header">
     <div class="main_menu">
         <nav class="navbar navbar-expand-lg navbar-light main_box">
@@ -52,22 +52,14 @@
                                     class="ti-bag"></span></a>
                         </li>
                         <li class="nav-item">
-                            <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
+                            <button class="search"><span class="lnr lnr-magnifier" ></span></button>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </div>
-    <div class="search_input" id="search_input_box">
-        <div class="container">
-            <form class="d-flex justify-content-between">
-                <input type="text" class="form-control" id="search_input" placeholder="Search Here">
-                <button type="submit" class="btn"></button>
-                <span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
-            </form>
-        </div>
-    </div>
+   
 </header>
 <!-- End Header Area -->
 <section class="banner-area">

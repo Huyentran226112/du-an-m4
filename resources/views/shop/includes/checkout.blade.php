@@ -58,8 +58,6 @@
                                             <div>
                                                 <h6 class="mb-3">Sản phẩm</h6>
                                                 <div class="d-flex justify-content-between">
-
-
                                                     <p> <input type="hidden" value="{{ $id }}"
                                                             name="product_id[]">{{ $details['name'] ?? '' }}
                                                     </p>
@@ -76,7 +74,6 @@
                                                     <h6>Tổng phụ</h6>
                                                     <h6>{{number_format( $total) }} Vnd </h6>
                                                 </div>
-
                                             </div>
                                             <div class="pt-2">
                                                 <div class="d-flex justify-content-between mt-2">
@@ -84,28 +81,28 @@
                                                     <h5>{{ number_format($total) }} Vnd </h5>
                                                 </div>
                                             </div>
-
-
                                         </div>
                                         <div class="discount-code">
-                                            @endforeach
-                                            @endif
                                             <div class="pt-2">
                                                 <div class="d-flex justify-content-between mt-2">
                                                     <h5>Số tiền cần trả : {{number_format( $totalAll) }} Vnd </h5>
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
+                                @endforeach
+                                @endif
+
 
                     </form>
+
 
                 </div>
 
             </div>
         </div>
-
 
     </table>
 </div>

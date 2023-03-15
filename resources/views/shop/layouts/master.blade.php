@@ -83,6 +83,8 @@
     <script src="{{ asset('shop/js/gmaps.min.js') }}"></script>
     <script src="{{ asset('shop/js/main.js') }}"></script>
     @yield('scripts')
+
 </body>
+
 
 </html>

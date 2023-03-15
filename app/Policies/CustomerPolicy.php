@@ -98,4 +98,9 @@ class CustomerPolicy
        return $user->hasPermission('Customer_forceDelete');
        //
     }
+    public function viewtrash(User $user)
+    {
+        return $user->hasPermission('Customer_viewtrash');
+        //
+    }
 }

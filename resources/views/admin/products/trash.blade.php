@@ -34,7 +34,6 @@
             <td>{{ $soft->status == 1 ? ' Active' : 'No Active' }}</td>
 
             <td>
-
                 <a href="{{route('products.restore',[$soft->id])}}" class="btn btn-warning">Khôi phục</a>
                 <a href="{{route('products.deleteforever',[$soft->id])}}" onclick="return confirm('Bạn có chắc chắn xóa vĩnh viễn không?');" class="btn btn-secondary">Xóa vĩnh viễn</a>
             </td>

@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+
 
 class UserController extends Controller
 {
@@ -17,7 +20,7 @@ class UserController extends Controller
      */
     public function index(){
 
-        $users = User::orderBy('id','DESC')->get();
+        $users = User::orderBy('id','DESC')->paginate(3);
         $param = [
             'users' => $users,
         ];
@@ -42,16 +45,17 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        $this->authorize('create', User::class);
+        // dd($request->all());
+        // $this->authorize('create', User::class);
         $users = new User();
         $users->name = $request->name;
         $users->email = $request->email;
         $users->password = $request->password;
         $users->group_id = $request->group_id;
         $users->save();
-        alert()->success('Thêm', 'thành công');
+        // alert()->success('Thêm', 'thành công');
 
         return redirect()->route('users.index');
     }
@@ -84,7 +88,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateUserRequest $request, string $id)
     {
         // dd($request);
         
@@ -102,7 +106,13 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $this->authorize('delete', Customer::class);
+
+        $customers = User::find($id);
+        $customers->delete();
+        alert()->success('xóa thành công!');
+        return redirect()->route('users.index');
+
     }
     public function viewLogin()
     {

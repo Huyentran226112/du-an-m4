@@ -27,9 +27,9 @@ img.img-fluid:hover {
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="list-products">
             @foreach ($products as $product)
-            <div class="col-lg-3 col-md-6">
+            <div class=" col-lg-3 col-md-6" id="product-list">
                 <div class="single-product">
                     <img class="img-fluid" src="{{ asset('public/assets/product/' . $product->image) }}" alt="">
                     <div class="product-details">
@@ -104,4 +104,21 @@ img.img-fluid {
     </div>
 </section>
 <!-- End exclusive deal Area -->
+<!-- End exclusive deal Area -->
+
+
+<!-- End exclusive deal Area -->
+@endsection
+@section("scripts")
+<script>
+    $(document).ready(function() {
+        $("#search-product").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            alert(value);
+            $("#list-products #product-list").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+    </script>
 @endsection

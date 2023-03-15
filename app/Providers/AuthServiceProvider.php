@@ -7,6 +7,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use  App\Models\Category;
 use App\Policies\CategoryPolicy;
 
+
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -16,6 +17,11 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Category::class=> CategoryPolicy::class,
+        Customer::class=> CustomerPolicy::class,
+        Group::class=> GroupPolicy::class,
+        Order::class=> OrderPolicy::class,
+        Product::class=> ProductPolicy::class,
+        User::class=> UserPolicy::class,
     ];
     public function boot(): void
     {

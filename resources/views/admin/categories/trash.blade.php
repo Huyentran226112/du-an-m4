@@ -17,9 +17,14 @@
                     <td>{{ $soft->name }}</td>
                     <td>
                         <a href="{{ route('cate.restore', [$soft->id]) }}" class="btn btn-warning">Khôi phục</a>
-                        <a href="{{ route('categories.force-delete', [$soft->id]) }}"
+                        <form action="{{route('categories.destroy', [$soft->id])}}" method='post'>
+                            @csrf
+                            @method('DELETE')
+                        <!-- <a href="{{ route('categories.force-delete', [$soft->id]) }}"
                             onclick="return confirm('Bạn có chắc chắn xóa vĩnh viễn không?');" class="btn btn-secondary">Xóa vĩnh
-                            viễn</a>
+                            viễn</a> -->
+                            <input type="submit">
+                        </form>
                     </td>
                     </td>
                 </tr>

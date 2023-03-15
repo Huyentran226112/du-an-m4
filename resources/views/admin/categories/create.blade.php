@@ -8,10 +8,16 @@
         <div class="mb-3">
             <label class="form-label">Tên :</label>
             <input type="text" id="fname" name="name" class="form-control">
+            @error('name')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
         </div>
         <div class="mb-3">
             <label class="form-label">Ảnh</label>
             <input class="form-control" name="image" type="file">
+            @error('image')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
         </div>
         <input type="submit" value="Lưu" class="btn btn-success">
         <a href="{{route('categories.index')}}" class="btn btn-danger">Huỷ</a>

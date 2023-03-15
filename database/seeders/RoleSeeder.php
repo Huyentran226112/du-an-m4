@@ -13,8 +13,8 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        $groups = ['Category', 'Group', 'Order', 'Product', 'User'];
-        $actions = ['viewAny', 'view', 'create', 'update', 'delete', 'restore', 'forceDelete'];
+        $groups = ['Category', 'Group', 'Order', 'Product', 'User','Customer'];
+        $actions = ['viewAny', 'view', 'create', 'update', 'delete', 'restore', 'forceDelete','trash'];
         foreach ($groups as $group) {
             foreach ($actions as $action) {
                 DB::table('roles')->insert([

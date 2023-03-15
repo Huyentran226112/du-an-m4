@@ -12,7 +12,7 @@
             <th scope="col">Công cụ</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="list-users">
         @foreach ($users as $key => $user)
         <tr>
             <td> {{ ++ $key}}</td>
@@ -31,4 +31,8 @@
                         class="bi bi-pencil-square"></i></a>
             </td>
         </tr>
-        @endsection
+        @endforeach
+    </tbody>
+</table>
+{{ $users->onEachSide(5)->links()}}
+@endsection

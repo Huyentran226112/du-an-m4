@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use COM;
+use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -12,7 +14,6 @@ use Illuminate\Support\Facades\Log;
 
 class CategoryController extends Controller
 {
-   
     public function index()
     {
         $this->authorize('viewAny', Category::class);
@@ -22,8 +23,6 @@ class CategoryController extends Controller
         ];
         return view('admin.categories.index', $param);
     }
-
-
     public function create()
     {
         $this->authorize('create', Category::class);
@@ -31,11 +30,13 @@ class CategoryController extends Controller
         return view('admin.categories.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
+
     {
         $this->authorize('create', Category::class);
         $categories = new Category();
         $categories->name = $request->name;
+       
         if ($request->hasFile('image')) {
             $get_image = $request->file('image');
             $path = 'public/assets/category/';
@@ -65,12 +66,12 @@ class CategoryController extends Controller
     {
         $this->authorize('update', Category::class);
         $categories = Category::find($id);
-        $this->authorize('update', $item);
+        // $this->authorize('update', $item);   
         return view('admin.categories.edit', compact('categories'));
     }
 
 
-    public function update(Request $request, $id)
+    public function update(UpdateCategoryRequest $request, $id)
     {
         $this->authorize('update', Category::class);
         
@@ -96,12 +97,10 @@ class CategoryController extends Controller
 
         return redirect()->route('categories.index');
     }
-    public function destroy(string $id)
+    public function destroy( $id)
     {
         $this->authorize('delete', Category::class);
-      
-        $product = Category::find($id);
-        $product->delete();
+        $product = Category::withTrashed()->where('id', $id)->forceDelete();
         alert()->success('Sản phẩm đã được đưa vào thùng rác!');
         return redirect()->route('categories.index');
     }
