@@ -1,42 +1,6 @@
 @extends('shop.layouts.master')
 @section('content')
-<!DOCTYPE html>
-<html lang="zxx" class="no-js">
 
-<head>
-    <!-- Mobile Specific Meta -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Favicon-->
-    <link rel="shortcut icon" href="img/fav.png">
-    <!-- Author Meta -->
-    <meta name="author" content="CodePixar">
-    <!-- Meta Description -->
-    <meta name="description" content="">
-    <!-- Meta Keyword -->
-    <meta name="keywords" content="">
-    <!-- meta character set -->
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <!-- Site Title -->
-    <title>Karma Shop</title>
-
-    <!--
-            CSS
-            ============================================= -->
-    {{-- <link rel="stylesheet" href="{{ asset('shop/css/linearicons.css')}}">
-    <link rel="stylesheet" href="{{ asset('shop/css/owl.carousel.css')}}">
-    <link rel="stylesheet" href="{{ asset('shop/css/font-awesome.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('shop/css/themify-icons.css')}}">
-    <link rel="stylesheet" href="{{ asset('shop/css/nice-select.css')}}">
-    <link rel="stylesheet" href="{{ asset('shop/css/nouislider.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('shop/css/bootstrap.css')}}">
-    <link rel="stylesheet" href="{{ asset('shop/css/main.css')}}"> --}}
-</head>
 
 <body>
 
@@ -102,13 +66,13 @@
     </table>
     @endsection
     @section('scripts')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script type="text/javascript">
-    $(".update-cart").click(function(e) {
+    $(document).on('click', '.update-cart' ,function (e) {
         e.preventDefault();
         var ele = $(this);
         $.ajax({
-            url: '{{ url('
-            update - cart ') }}',
+            url: '{{ route("update-cart")}}',
             method: "patch",
             data: {
                 _token: '{{ csrf_token() }}',
@@ -125,8 +89,7 @@
         var ele = $(this);
         if (confirm("Are you sure")) {
             $.ajax({
-                url: '{{ url('
-                remove - from - cart ') }}',
+                url: '{{ route("remove-from-cart") }}',
                 method: "DELETE",
                 data: {
                     _token: '{{ csrf_token() }}',

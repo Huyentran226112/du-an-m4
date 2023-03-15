@@ -157,8 +157,6 @@
     <!-- Custom JavaScript -->
     <script src="{{ asset('admin/js/custom.js') }}"></script>
     @yield('scripts')
-
-
     <script>
     ClassicEditor
         .create(document.querySelector('#editor'))

@@ -100,7 +100,7 @@ class CategoryController extends Controller
     public function destroy( $id)
     {
         $this->authorize('delete', Category::class);
-        $product = Category::withTrashed()->where('id', $id)->forceDelete();
+        $product = Category::where('id', $id)->forceDelete();
         alert()->success('Sản phẩm đã được đưa vào thùng rác!');
         return redirect()->route('categories.index');
     }
@@ -115,7 +115,7 @@ class CategoryController extends Controller
     {
         $this->authorize('restore', Category::class);
         try {
-            $softs = Category::withTrashed()->find($id);
+            $softs = Category::onlyTrashed()->find($id);
             $softs->restore();
             alert()->success('Khôi phục sản phẩm thành công!');
             return redirect()->route('categories.trash');
@@ -131,7 +131,7 @@ class CategoryController extends Controller
         $this->authorize('forceDelete', Category::class);
         try {
               //1: tìm ra nhũng product có cate_id = $id
-                $products = Product::where('category_id', $id)->get();
+                $products = Product::onlyTrashed()->find($id);
                 //2: chuyển những product có cate_it đó về 1 cate _id khác
                 foreach ($products as $product) {
                         $product->category_id = 1;

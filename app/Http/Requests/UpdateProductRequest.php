@@ -26,8 +26,7 @@ class UpdateProductRequest extends FormRequest
             'price'=>'required|max:255',
             'quantity'=>'required|max:255',
             'category_id'=>'required|max:255',
-            'description'=>'required|max:255',
-            'image'=>'required',
+            'description'=>'required',
             'status'=>'required|max:255',
         ];
         return $roles;
