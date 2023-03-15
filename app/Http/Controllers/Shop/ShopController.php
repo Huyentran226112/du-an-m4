@@ -50,7 +50,7 @@ class ShopController extends Controller
         } else {
                 $carts = [];
             }
-        $products = Product::where('status',0)->get();
+        $products = Product::get();
         $param = [
             'products' => $products,
         ];
