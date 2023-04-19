@@ -24,7 +24,7 @@ Route::get('users', function () {
     return view('auth.login');
 });
 
-Route::get('login', [UserController::class, 'viewLogin'])->name('login');
+Route::get(' ', [UserController::class, 'viewLogin'])->name('login');
 Route::post('register', [UserController::class, 'register'])->name('register');
 Route::post('checklogin', [UserController::class, 'login'])->name('checklogin');
 Route::get('dang_ki', [UserController::class, 'viewRegister'])->name('dang_ki');
