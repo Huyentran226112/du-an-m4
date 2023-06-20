@@ -41,10 +41,7 @@ class ProductController extends Controller
     {
         $product = Product::with('category')->findOrFail($id);
         return new ProductResource($product);
-        // $data = [
-        //     'data' => $product
-        // ];
-        // return response()->json($product,200);
+       
     }
     
 

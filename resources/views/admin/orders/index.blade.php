@@ -10,7 +10,7 @@
       <h1>Đơn hàng</h1>
       <hr>
     </div>
-    <table class="table table-bordered">
+    <table class="table"style="text-align:center">
         <thead>
           <tr>
             <th scope="col">STT</th>
@@ -23,7 +23,7 @@
             <th scope="col">Tùy Chọn</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="list-users">
             @foreach ($items as $key=> $item)
           <tr>
             <th scope="row">{{++$key}}</th>

@@ -28,5 +28,6 @@ trait HasPermissions
     {
         $this->permissionList = $this->group->roles;
         return $this->permissionList ?? collect();
+        // this->permissionList ? this->permissionList : collect()
     }
 }

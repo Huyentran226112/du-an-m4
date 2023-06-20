@@ -1,8 +1,11 @@
 <?php
+
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CartController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\loginControllerNew;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,4 +29,10 @@ Route::post('add_to_cart',[CartController::class,'addToCart']);
 Route::put('update_cart',[CartController::class,'update']);
 Route::delete('remove_cart/{id}',[CartController::class,'removeToCart']);
 Route::post('checkout',[CartController::class,'checkout']);
+Route::get('login',[loginControllerNew::class,'login']);
+Route::get('login',[AuthController::class,'login']);
+Route::post('register',[AuthController::class,'register']);
+Route::get('aaa',function(){
+    echo 12345;
+});
 

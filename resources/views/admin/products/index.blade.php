@@ -16,10 +16,11 @@
             <th scope="col">Công cụ</th>
         </tr>
     </thead>
-    <tbody>
-        @foreach ($products as $product)
+    <tbody id="list-users">
+        @foreach ($products as $key =>$product)
         <tr>
-            <td> {{ $product->id }}</td>
+
+            <td> {{ ++$key }}</td>
             <td> {{ $product->name }}</td>
             <td> {{ number_format($product->price) }} vnđ</d>
                 {{-- @php

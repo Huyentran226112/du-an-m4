@@ -13,8 +13,8 @@
         <th scope="col">Ảnh</th>
         <th scope="col">Công cụ</th>
       </tr>
-    </thead>
-    <tbody>
+    </thead>    
+    <tbody id="list-users">
         @foreach ($categories as $key => $category)
         <tr>
             <td> {{ ++ $key}}</td>

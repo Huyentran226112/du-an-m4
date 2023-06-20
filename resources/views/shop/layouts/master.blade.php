@@ -51,10 +51,10 @@
         <div class="container">
             <div class="row">
                 @foreach ($categories as $category)
-                <a class="col single-img" href="{{ route('category_detail', [$category->id]) }}">
-                    <img class="img-fluid d-block mx-auto"
-                        src="{{ asset('public/assets/category/' . $category->image) }}">
-                </a>
+                    <a class="col single-img" href="{{ route('category_detail', [$category->id]) }}">
+                        <img class="img-fluid d-block mx-auto"
+                            src="{{ asset('public/assets/category/' . $category->image) }}">
+                    </a>
                 @endforeach
 
 
@@ -82,7 +82,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
     <script src="{{ asset('shop/js/gmaps.min.js') }}"></script>
     <script src="{{ asset('shop/js/main.js') }}"></script>
-   
+
     @yield('scripts')
 
 </body>

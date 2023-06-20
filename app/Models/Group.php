@@ -11,7 +11,7 @@ class Group extends Model
     use HasFactory;
 
     protected $table ='groups';
-    use HasFactory;
+    // use HasFactory;
     use Notifiable;
     protected $fillable = ['name'];
     public function users()

@@ -10,7 +10,7 @@ class CartController extends Controller
 {
     function getAllCart()
     {
-        // Cache::forget('carts');
+        
         $products = [];
         $carts = Cache::get('carts');
         if ($carts) {

@@ -4,7 +4,6 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\ProductController;
 use  App\Http\Controllers\Shop\ShopController;
 use App\Http\Controllers\UserController;

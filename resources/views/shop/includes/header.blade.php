@@ -59,7 +59,7 @@
             </div>
         </nav>
     </div>
-   
+
 </header>
 <!-- End Header Area -->
 <section class="banner-area">

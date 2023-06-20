@@ -36,7 +36,7 @@ class CategoryController extends Controller
         $this->authorize('create', Category::class);
         $categories = new Category();
         $categories->name = $request->name;
-       
+
         if ($request->hasFile('image')) {
             $get_image = $request->file('image');
             $path = 'public/assets/category/';
@@ -56,9 +56,9 @@ class CategoryController extends Controller
 
     public function show( $id)
     {
-        $this->authorize('view', Category::class);
-        $item = Category::find($id);
-        $this->authorize('view', $item);
+        // $this->authorize('view', Category::class);
+        // $item = Category::find($id);
+        // $this->authorize('view', $item);
     }
 
 
@@ -66,7 +66,6 @@ class CategoryController extends Controller
     {
         $this->authorize('update', Category::class);
         $categories = Category::find($id);
-        // $this->authorize('update', $item);   
         return view('admin.categories.edit', compact('categories'));
     }
 
@@ -74,7 +73,7 @@ class CategoryController extends Controller
     public function update(UpdateCategoryRequest $request, $id)
     {
         $this->authorize('update', Category::class);
-        
+
         $categories = Category::find($id);
         $categories->name = $request->name;
         $get_image = $request->image;
@@ -100,7 +99,9 @@ class CategoryController extends Controller
     public function destroy( $id)
     {
         $this->authorize('delete', Category::class);
-        $product = Category::where('id', $id)->forceDelete();
+        // $product = Category::where('id', $id)->forceDelete();
+        $Category = Category::find($id);
+        $Category->delete();
         alert()->success('Sản phẩm đã được đưa vào thùng rác!');
         return redirect()->route('categories.index');
     }
@@ -126,28 +127,30 @@ class CategoryController extends Controller
       }
     }
     //xóa vĩnh viễn
-   public function force_delete(string $id)
+    public function force_delete(string $id)
     {
         $this->authorize('forceDelete', Category::class);
         try {
-              //1: tìm ra nhũng product có cate_id = $id
-                $products = Product::onlyTrashed()->find($id);
-                //2: chuyển những product có cate_it đó về 1 cate _id khác
-                foreach ($products as $product) {
-                        $product->category_id = 1;
-                        $product->save();
-                        //xoá
+            // Xoá vĩnh viễn category
+            $category = Category::withTrashed()->find($id);
+            $category->forceDelete();
 
-                        $soft = Category::withTrashed()->where('id', $id)->forceDelete();
+            // Tìm tất cả các sản phẩm đã bị xóa mà có cate_id = $id
+            $products = Product::onlyTrashed()->where('category_id', $id)->get();
 
-                        alert()->success('Xóa Vĩnh Viễn Thành Công!');
-                        return redirect()->route('categories.trash');
-                }
-        } catch (\exception $e) {
-                Log::error($e->getMessage());
-                toast('Có Lỗi Xảy Ra!', 'error', 'top-right');
-                return redirect()->route('categories.trash');
+            // Chuyển các sản phẩm đã tìm thấy về một cate_id khác
+            foreach ($products as $product) {
+                $product->category_id = 1; // Đặt category_id mới ở đây
+                $product->save();
+            }
+
+            alert()->success('Xóa Vĩnh Viễn Thành Công!');
+            return redirect()->route('categories.trash');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            toast('Có Lỗi Xảy Ra!', 'error', 'top-right');
+            return redirect()->route('categories.trash');
         }
-     }
+    }
 
 }

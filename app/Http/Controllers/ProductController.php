@@ -23,8 +23,8 @@ class ProductController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Product::class);
-        
-        $products = Product::orderBy('id', 'DESC')->paginate(5);
+
+        $products = Product::orderBy('id', 'DESC')->paginate(4);
         $param = [
             'products' => $products
         ];
@@ -49,7 +49,7 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         $this->authorize('create', Product::class);
-        
+
         $product = new Product();
         $product->name = $request->name;
         $product->price = $request->price;
@@ -147,12 +147,12 @@ class ProductController extends Controller
         $product->delete();
         alert()->success('Sản phẩm đã được đưa vào thùng rác!');
         return redirect()->route('products.index');
-      
+
     }
     public function trash()
     {
         $this->authorize('viewtrash', Product::class);
-        
+
         $softs = Product::onlyTrashed()->get();
         return view('admin.products.trash', compact('softs'));
     }

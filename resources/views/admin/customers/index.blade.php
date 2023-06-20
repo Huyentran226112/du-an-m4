@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 @section('content')
 <h3>Danh sách khách hàng </h3>
-<table class="table">
+<table  class="table"style="text-align:center">
     <thead>
       <tr>
         <th scope="col">Số thứ tự</th>
@@ -11,7 +11,7 @@
         <th scope="col">Email</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="list-users">
         @foreach ($customers as $key => $customer)
         <tr>
             <td> {{++$key}}</td>
