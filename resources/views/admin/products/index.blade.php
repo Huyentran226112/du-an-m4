@@ -23,11 +23,7 @@
             <td> {{ ++$key }}</td>
             <td> {{ $product->name }}</td>
             <td> {{ number_format($product->price) }} vnđ</d>
-                {{-- @php
-                        dd($product->category->name);
-                    @endphp --}}
             <td> {{ isset($product->category->name) ? $product->category->name : 'Chưa phân loại '  }}</td>
-
             <td>
                 <a href="{{ route('products.show', $product['id']) }}">
                     <img src="{{ asset('public/assets/product/' . $product->image) }}" alt="" style="width: 50px">

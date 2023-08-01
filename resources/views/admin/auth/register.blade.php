@@ -182,21 +182,21 @@ input[type="submit"] {
     <form action="{{Route('register')}}"method="post">
         @csrf
         <div class="user-box">
-            <input type="text" name="name" required="">
+            <input type="text" name="name" >
             @error('name')
                     <div style="color: red">{{$message}}</div>
             @enderror
             <label>Name</label>
           </div>
       <div class="user-box">
-        <input type="text" name="email" required="">
+        <input type="text" name="email" >
         @error('email')
                 <div style="color: red">{{$message}}</div>
         @enderror
         <label>Email</label>
       </div>
       <div class="user-box">
-        <input type="password" name="password" required="">
+        <input type="password" name="password" >
         @error('password')
                 <div style="color: red">{{$message}}</div>
         @enderror

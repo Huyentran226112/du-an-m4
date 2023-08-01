@@ -50,7 +50,7 @@
                                             <td>{{ number_format($productshow->price)}} VND</td>
                                         </tr>
                                         <tr>
-                                            <td>Ngày thêm</td>
+                                            <td>Ngày cập nhật </td>
                                             <td>{{ $productshow->created_at}}</td>
                                         </tr>
                                         <tr>

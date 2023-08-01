@@ -19,7 +19,6 @@
             <th scope="col">Số Điện Thoại</th>
             <th scope="col">Địa Chỉ</th>
             <th scope="col">Ngày Đặt Hàng</th>
-            {{-- <th scope="col">Tổng Tiền(Đồng)</th> --}}
             <th scope="col">Tùy Chọn</th>
           </tr>
         </thead>
@@ -32,9 +31,8 @@
             <td>{{$item->customer->phone}}</td>
             <td>{{$item->customer->address}}</td>
             <td>{{$item->date_at}}</td>
-            {{-- <td>{{number_format($item->total)}}</td> --}}
             <td>
-                <a class="btn btn-primary" href="{{ route('orders.show',$item->id) }}">chi tiet</a>
+                <a class="btn btn-primary" href="{{ route('orders.show',$item->id) }}"><i class="bi bi-ticket-detailed-fill"></i></a>
 
             </td>
           </tr>

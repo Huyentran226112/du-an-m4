@@ -10,7 +10,7 @@
                             <h1>Chi tiết đơn hàng</h1>
                             <a class="btn btn-primary" href="{{ route('orders.index') }}">Đơn hàng</a>
                         </div>
-                        <table class="table table-bordered">
+                        <table  class="table"style="text-align:center">
                             <thead>
                                 <tr>
                                     <th scope="col">STT</th>
@@ -25,9 +25,9 @@
                                     <tr>
                                         <th scope="row">{{ ++$key }}</th>
                                         <td>{{ $item->name }}</td>
-                                        <td>{{ number_format($item->price) }}</td>
+                                        <td>{{ number_format($item->price) }}vnd</td>
                                         <td>{{ $item->quantity }}</td>
-                                        <td>{{ number_format($item->total) }}</td>
+                                        <td>{{ number_format($item->total) }}vnd</td>
                                     </tr>
                                 @endforeach
                             </tbody>

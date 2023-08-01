@@ -383,7 +383,7 @@
         <input type="text" name="check" value="<?= $_GET['check'] ?? '' ?>" hidden>
         <div class="right">
             <h1>Đăng nhập</h1>
-            <p>Don't have an account? <a href="#">Creat Your Account</a> it takes less than a minute</p>
+            <p> Don't have an account? <a href="#">Creat Your Account</a> it takes less than a minute</p>
             <div class="inputs">
                 <input type="text" placeholder="Email" name="email">
                 @error('email')

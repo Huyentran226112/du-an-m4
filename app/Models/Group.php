@@ -11,7 +11,7 @@ class Group extends Model
     use HasFactory;
 
     protected $table ='groups';
-    // use HasFactory;
+    use HasFactory;
     use Notifiable;
     protected $fillable = ['name'];
     public function users()
@@ -22,12 +22,6 @@ class Group extends Model
     {
         return $this->belongsToMany(Role::class,'group_roles','group_id','role_id');
     }
-    // public function scopesearch($query)
-    // {
-    //     if ($key = request()->search) {
-    //         $query = $query->where('name', 'like', '%' . $key . '%');
-    //     }
-    //     return $query;
-    // }
+
 
 }

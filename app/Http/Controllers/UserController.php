@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use App\Models\Group;
 use Illuminate\Http\RedirectResponse;
@@ -25,7 +26,7 @@ class UserController extends Controller
         $param = [
             'users' => $users,
         ];
-        
+
         return view('admin.users.index', $param);
     }
 
@@ -38,7 +39,7 @@ class UserController extends Controller
         $groups = Group::all();
         $param = [
             'groups' => $groups,
-            
+
         ];
         return view('admin.users.create',$param);
     }
@@ -76,11 +77,11 @@ class UserController extends Controller
         $this->authorize('update', User::class);
         $groups = Group::all();
         $users = User::find($id);
-        
+
         $param = [
             'users' => $users,
             'groups' => $groups,
-            
+
         ];
 
         return view('admin.users.edit', $param);
@@ -92,7 +93,7 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, string $id)
     {
         // dd($request);
-        
+
         $users = User::find($id);
         $users->name = $request->name;
         $users->email = $request->email;
@@ -121,7 +122,7 @@ class UserController extends Controller
         return view('admin.auth.login');
     }
     //xử lí đăng nhập
-    public function login(Request $request){
+    public function login(LoginRequest  $request){
       $credentials = $request->validate([
           'email' => 'required',
           'password'=>'required|min:2',
@@ -132,8 +133,6 @@ class UserController extends Controller
               'password.min'=>'Lớn hơn :min',
           ]
   );
-
-
         if (Auth::attempt($credentials)) {
 
             $request->session()->regenerate();

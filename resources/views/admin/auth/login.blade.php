@@ -174,20 +174,26 @@ input[type="submit"] {
   outline: none;
   color: blue;
 }
+input[type="button"] {
+  background-color: transparent;
+    border:0.000001px solid black;
+    outline: none;
+    color: blue;
+  }
 </style>
 <div class="login-box">
     <h2>Đăng nhập Admin</h2>
     <form action="{{Route('checklogin')}}"method="post">
         @csrf
       <div class="user-box">
-        <input type="text" name="email" required="">
+        <input type="text" name="email" >
         @error('email')
                 <div style="color: red">{{$message}}</div>
         @enderror
         <label>Email</label>
       </div>
       <div class="user-box">
-        <input type="password" name="password" required="">
+        <input type="password" name="password" >
         @error('password')
                 <div style="color: red">{{$message}}</div>
         @enderror
@@ -200,13 +206,20 @@ input[type="submit"] {
       <span></span>
       <input type="submit"value="Đăng nhập">
     </a>
-<a href="{{route('dang_ki')}}">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      Đăng kí 
-    </a>
+    <a href="#" onclick="showRegistrationForm()">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <input type="submit" value="Đăng kí">
+      </a>
+
+      <script>
+        function showRegistrationForm() {
+          // Thực hiện chuyển hướng đến trang đăng kí
+          window.location.href = "{{ route('dang_ki') }}";
+        }
+      </script>
 
     </form>
   </div>

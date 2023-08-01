@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Group;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,10 +13,11 @@ class GroupController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Group::class);
-        
         $groups = Group::all();
+        $users= User::get();
         $param = [
             'groups'=>$groups,
+            'users' =>$users,
 
         ];
         return view('admin.groups.index',$param);
@@ -30,7 +32,7 @@ class GroupController extends Controller
      public function store(Request $request)
     {
         $this->authorize('create', Group::class);
-        
+
         $notification = [
             'addgroup' => 'Thêm Tên Quyền Thành Công!',
         ];

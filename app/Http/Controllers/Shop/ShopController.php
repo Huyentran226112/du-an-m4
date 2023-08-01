@@ -177,7 +177,6 @@ class ShopController extends Controller
                 $data->note = $request->note;
             }
             $data->save();
-
             $order = new order();
             $order->customer_id = Auth::guard('customers')->user()->id;
             $order->date_at = date('Y-m-d H:i:s');

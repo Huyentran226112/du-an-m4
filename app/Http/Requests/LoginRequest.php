@@ -33,7 +33,6 @@ class LoginRequest extends FormRequest
             'email.required'=>'vui lòng nhập email',
             'email.email'=>'email không đúng',
             'password.required'=>'nhập mật khẩu'
-
         ];
         return $messages ;
     }

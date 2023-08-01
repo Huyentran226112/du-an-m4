@@ -41,7 +41,6 @@
 
     @include('shop.includes.header')
 
-    @include('shop.includes.sidebar')
     @yield('content')
 
 
@@ -56,8 +55,6 @@
                             src="{{ asset('public/assets/category/' . $category->image) }}">
                     </a>
                 @endforeach
-
-
             </div>
         </div>
     </section>

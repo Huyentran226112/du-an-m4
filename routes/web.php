@@ -23,14 +23,14 @@ Route::get('users', function () {
     return view('auth.login');
 });
 
-Route::get(' ', [UserController::class, 'viewLogin'])->name('login');
+Route::get('login', [UserController::class, 'viewLogin'])->name('login');
 Route::post('register', [UserController::class, 'register'])->name('register');
 Route::post('checklogin', [UserController::class, 'login'])->name('checklogin');
 Route::get('dang_ki', [UserController::class, 'viewRegister'])->name('dang_ki');
 
 // đăng nhập Admin
 Route::prefix('/')->middleware(['auth','revalidate'])->group(function () {
-    Route::get('logout', [UserController::class, 'logout'])->name('logout');
+    Route::get('logout1', [UserController::class, 'logout'])->name('logout1');
     Route::resource('categories', CategoryController::class);
 // thùng rác
 Route::get('/trash-cate', [CategoryController::class, 'trash'])->name('categories.trash');
